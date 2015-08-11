@@ -22,8 +22,6 @@ if (Meteor.isClient) {
       //data-cat was not updating the winningCat, had to revert to attribute
       var winningCat = $(elem).attr('cat');
 
-      console.log('clicked cat: ', winningCat);
-
       if (selectedCat) {
         return
       } else {
@@ -59,7 +57,6 @@ if (Meteor.isClient) {
         $('#results').text('');
         $('.cat-loader').removeClass('active');
 
-        console.log('Resetting cats');
         selectedCat = false;
         cat1 = null;
         cat2 = null;
@@ -72,15 +69,13 @@ if (Meteor.isClient) {
   Template.catImages.helpers({
     'cats': function () {
       var currentBattle = Session.get('battleNumber');
-      console.log('retrieving cats');
+
       if (!cat1) {
         cat1 = chooseRandomNumber(0, 13);
-        console.log('Loading cat1: ', cat1);
       }
 
       if (!cat2) {
         cat2 = chooseRandomNumber(0, 13, cat1);
-        console.log('Loading cat2: ', cat2);
       }
 
       return {cat1: cat1, cat2: cat2};
@@ -128,8 +123,6 @@ if (Meteor.isServer) {
   });
 
   Meteor.onConnection(function (connection) {
-    console.log(connection);
-
     var userAgent = connection.httpHeaders['user-agent'];
 
     ActivePlayers.insert({
@@ -147,8 +140,6 @@ if (Meteor.isServer) {
 
   Meteor.methods({
     'registerClient': function (sessionId) {
-      console.log('conn', this.connection);
-      console.log('sessionId', sessionId);
 
       ActivePlayers.upsert({connectionId: this.connection.id}, {
         $set: {
