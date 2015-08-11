@@ -5,11 +5,13 @@
 
 <body>
   {{> main }}
+
+  <div id='results'></div>
 </body>
 
 <template name="main">
   <h1>Battle Cats!</h1>
-  <h3>Pick a Cat:</h3>
+  <h2>Battle # {{battleNumber}}: Pick a Cat</h2>
 
   {{#with cats}}
       <img id='cat1' class='catChoice' src="/kittens/{{cat1}}.jpg" cat="{{cat1}}">
