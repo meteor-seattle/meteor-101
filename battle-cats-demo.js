@@ -6,19 +6,16 @@ if (Meteor.isClient) {
 
   Template.main.helpers({
     'cats': function () {
-      console.log('retrieving cats');
       
       // Session variable causes helper to be reactive and forces helper to reload when variable changes
       var currentBattle = Session.get('battleNumber');
 
       if (!cat1) {
         cat1 = chooseRandomNumber(0, 13);
-        console.log('Loading cat1: ', cat1);
       }
       
       if (!cat2) {
         cat2 = chooseRandomNumber(0, 13, cat1);
-        console.log('Loading cat2: ', cat2);
       }
 
       return { cat1: cat1, cat2: cat2 };
@@ -36,8 +33,6 @@ if (Meteor.isClient) {
       var elem = e.currentTarget;
       //data-cat was not updating the winningCat, had to revert to attribute
       var winningCat = $(elem).attr('cat');
-
-      console.log('clicked cat: ', winningCat);
 
       if (selectedCat) {
         return
@@ -71,7 +66,6 @@ if (Meteor.isClient) {
       setTimeout(function () {
         $('#results').text('');
 
-        console.log('Resetting cats');
         selectedCat = false;
         cat1 = null;
         cat2 = null;
